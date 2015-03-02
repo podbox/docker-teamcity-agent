@@ -42,7 +42,7 @@ RUN useradd -m teamcity \
 
 USER teamcity
 
-ENV M3_HOME /apache-maven
+ENV M2_HOME /apache-maven
 ENV MAVEN_OPTS -Xmx512m -Xss256k -XX:+UseCompressedOops
 
 EXPOSE 9090
