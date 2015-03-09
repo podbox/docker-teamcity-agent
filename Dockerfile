@@ -1,8 +1,11 @@
 FROM podbox/java8
 
 RUN apt-get update \
- && apt-get install -yqq git libfontconfig \
- && apt-get clean
+ && apt-get install -yqq git libfontconfig python-dev \
+ && apt-get clean \
+ && pip install awscli awsebcli \
+ && aws --version \
+ && eb --version
 
 # ----------------------------------------------------------------------- nodejs
 ENV NODE_VERSION 0.12.0
