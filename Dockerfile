@@ -1,7 +1,7 @@
 FROM podbox/java8
 
 RUN apt-get update \
- && apt-get install -yqq git libfontconfig python-dev \
+ && apt-get install -yqq git libfontconfig python-dev python-pip \
  && apt-get clean \
  && pip install -q awscli awsebcli
 
