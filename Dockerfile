@@ -21,7 +21,7 @@ RUN (curl -L http://mirrors.ibiblio.org/apache/maven/maven-3/$MAVEN_VERSION/bina
  && mv apache-maven-$MAVEN_VERSION apache-maven
 
 # --------------------------------------------------------------- teamcity-agent
-ENV TEAMCITY_VERSION 9.0.2
+ENV TEAMCITY_VERSION 9.0.3
 ENV TEAMCITY_GIT_PATH /usr/bin/git
 
 RUN curl -LO http://download.jetbrains.com/teamcity/TeamCity-$TEAMCITY_VERSION.war \
