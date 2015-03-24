@@ -6,7 +6,7 @@ RUN apt-get update \
  && pip install -q awscli awsebcli
 
 # ----------------------------------------------------------------------- nodejs
-ENV NODE_VERSION 0.12.0
+ENV NODE_VERSION 0.12.1
 
 RUN (curl -L http://nodejs.org/dist/v${NODE_VERSION}/node-v${NODE_VERSION}-linux-x64.tar.gz | gunzip -c | tar x) \
  && cp -R node-v${NODE_VERSION}-linux-x64/* /usr/ \
