@@ -6,7 +6,7 @@ RUN apt-get update \
  && pip install -q awscli awsebcli
 
 # ----------------------------------------------------------------------- nodejs
-ENV NODE_VERSION 0.12.2
+ENV NODE_VERSION 0.12.5
 
 RUN (curl -L http://nodejs.org/dist/v${NODE_VERSION}/node-v${NODE_VERSION}-linux-x64.tar.gz | gunzip -c | tar x) \
  && cp -R node-v${NODE_VERSION}-linux-x64/* /usr/ \
@@ -21,7 +21,7 @@ RUN (curl -L http://www.us.apache.org/dist/maven/maven-3/$MAVEN_VERSION/binaries
  && mv apache-maven-$MAVEN_VERSION apache-maven
 
 # --------------------------------------------------------------- teamcity-agent
-ENV TEAMCITY_VERSION 9.0.4
+ENV TEAMCITY_VERSION 9.0.5
 ENV TEAMCITY_GIT_PATH /usr/bin/git
 
 RUN curl -LO http://download.jetbrains.com/teamcity/TeamCity-$TEAMCITY_VERSION.war \
