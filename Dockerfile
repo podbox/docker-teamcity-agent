@@ -1,4 +1,4 @@
-FROM podbox/debian
+FROM podbox/protoc
 
 RUN apt-get update \
  && apt-get install -yqq procps git libfontconfig zip python-dev python-pip \
@@ -7,20 +7,20 @@ RUN apt-get update \
 
 # ------------------------------------------------------------------------- jdk8
 RUN (curl -L -k -b "oraclelicense=accept-securebackup-cookie" http://download.oracle.com/otn-pub/java/jdk/8u60-b27/jdk-8u60-linux-x64.tar.gz | gunzip -c | tar x) \
-&& mv /jdk1.8.0_60 /jdk
+ && mv /jdk1.8.0_60 /jdk
 
 ENV JAVA_HOME /jdk
 ENV JRE_HOME  $JAVA_HOME/jre
 ENV PATH $PATH:$JAVA_HOME/bin
 
 # ----------------------------------------------------------------------- nodejs
-ENV NODE_VERSION 0.12.7
+ENV NODE_VERSION 4.0.0
 
-RUN (curl -L http://nodejs.org/dist/v${NODE_VERSION}/node-v${NODE_VERSION}-linux-x64.tar.gz | gunzip -c | tar x) \
+RUN (curl -L https://nodejs.org/dist/latest/node-v$NODE_VERSION-linux-x64.tar.gz | gunzip -c | tar x) \
  && cp -R node-v${NODE_VERSION}-linux-x64/* /usr/ \
  && rm -fR node-v${NODE_VERSION}-linux-x64 \
  && npm update  -g \
- && npm install -g node-gyp grunt-cli karma-cli
+ && npm install -g node-gyp bower grunt-cli karma-cli
 
 # ------------------------------------------------------------------------ maven
 ENV MAVEN_VERSION 3.3.3
