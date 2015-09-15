@@ -1,4 +1,4 @@
-FROM podbox/protoc
+FROM podbox/debian
 
 RUN apt-get update \
  && apt-get install -yqq procps git libfontconfig zip python-dev python-pip \
