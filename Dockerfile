@@ -17,9 +17,9 @@ ENV PATH $PATH:$JAVA_HOME/bin
 RUN (curl -L http://www.java.net/download/jdk9/archive/b81/binaries/jdk-9-ea-bin-b81-linux-x64-09_sep_2015.tar.gz | gunzip -c | tar x)
 
 # ----------------------------------------------------------------------- nodejs
-ENV NODE_VERSION 4.0.0
+ENV NODE_VERSION 4.1.1
 
-RUN (curl -L https://nodejs.org/dist/latest/node-v$NODE_VERSION-linux-x64.tar.gz | gunzip -c | tar x) \
+RUN (curl -L https://nodejs.org/dist/v$NODE_VERSION/node-v$NODE_VERSION-linux-x64.tar.gz | gunzip -c | tar x) \
  && cp -R node-v${NODE_VERSION}-linux-x64/* /usr/ \
  && rm -fR node-v${NODE_VERSION}-linux-x64 \
  && npm update  -g \
