@@ -17,7 +17,7 @@ ENV PATH $PATH:$JAVA_HOME/bin
 RUN (curl -L http://www.java.net/download/jdk9/archive/b81/binaries/jdk-9-ea-bin-b81-linux-x64-09_sep_2015.tar.gz | gunzip -c | tar x)
 
 # ----------------------------------------------------------------------- nodejs
-ENV NODE_VERSION 4.1.1
+ENV NODE_VERSION 4.2.2
 
 RUN (curl -L https://nodejs.org/dist/v$NODE_VERSION/node-v$NODE_VERSION-linux-x64.tar.gz | gunzip -c | tar x) \
  && cp -R node-v${NODE_VERSION}-linux-x64/* /usr/ \
@@ -32,7 +32,7 @@ RUN (curl -L http://www.us.apache.org/dist/maven/maven-3/$MAVEN_VERSION/binaries
  && mv apache-maven-$MAVEN_VERSION apache-maven
 
 # --------------------------------------------------------------- teamcity-agent
-ENV TEAMCITY_VERSION 9.1.3
+ENV TEAMCITY_VERSION 9.1.4
 ENV TEAMCITY_GIT_PATH /usr/bin/git
 
 RUN curl -LO http://download.jetbrains.com/teamcity/TeamCity-$TEAMCITY_VERSION.war \
