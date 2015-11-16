@@ -14,7 +14,7 @@ ENV JRE_HOME  $JAVA_HOME/jre
 ENV PATH $PATH:$JAVA_HOME/bin
 
 # ------------------------------------------------------------------------- jdk9
-RUN (curl -L http://www.java.net/download/jdk9/archive/b81/binaries/jdk-9-ea-bin-b81-linux-x64-09_sep_2015.tar.gz | gunzip -c | tar x)
+RUN (curl -L http://download.java.net/jdk9/archive/b91/binaries/jdk-9-ea-bin-b91-linux-x64-04_nov_2015.tar.gz | gunzip -c | tar x)
 
 # ----------------------------------------------------------------------- nodejs
 ENV NODE_VERSION 4.2.2
