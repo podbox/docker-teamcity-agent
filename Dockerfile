@@ -34,7 +34,10 @@ ENV PATH $PATH:$M2_HOME/bin
 
 ENV AWS_MAVEN_VERSION 5.0.0.RELEASE
 RUN mvn dependency:get -DgroupId=org.springframework.build -DartifactId=aws-maven -Dversion=$AWS_MAVEN_VERSION \
- && mvn dependency:copy-dependencies -f /root/.m2/repository/org/springframework/build/aws-maven/$AWS_MAVEN_VERSION/aws-maven-$AWS_MAVEN_VERSION.pom -DincludeScopes=runtime -DoutputDirectory=/apache-maven/lib/ext \
+ && mvn dependency:copy-dependencies -f /root/.m2/repository/org/springframework/build/aws-maven/$AWS_MAVEN_VERSION/aws-maven-$AWS_MAVEN_VERSION.pom -DincludeScope=runtime -DoutputDirectory=/apache-maven/lib/ext \
+ && cp /root/.m2/repository/org/springframework/build/aws-maven/$AWS_MAVEN_VERSION/aws-maven-$AWS_MAVEN_VERSION.jar /apache-maven/lib \
+ && rm -f /apache-maven/lib/ext/logback-* /apache-maven/lib/ext/slf4j-* \
+ && mv /apache-maven/lib/ext/*.jar /apache-maven/lib/ \
  && rm -fR /root/.m2
 
 # --------------------------------------------------------------- teamcity-agent
