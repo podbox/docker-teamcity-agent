@@ -13,9 +13,6 @@ ENV JAVA_HOME /jdk
 ENV JRE_HOME  $JAVA_HOME/jre
 ENV PATH $PATH:$JAVA_HOME/bin
 
-# ------------------------------------------------------------------------- jdk9
-RUN (curl -L http://download.java.net/jdk9/archive/b91/binaries/jdk-9-ea-bin-b91-linux-x64-04_nov_2015.tar.gz | gunzip -c | tar x)
-
 # ----------------------------------------------------------------------- nodejs
 ENV NODE_VERSION 5.5.0
 
@@ -31,8 +28,14 @@ ENV MAVEN_VERSION 3.3.9
 RUN (curl -L http://www.us.apache.org/dist/maven/maven-3/$MAVEN_VERSION/binaries/apache-maven-$MAVEN_VERSION-bin.tar.gz | gunzip -c | tar x) \
  && mv apache-maven-$MAVEN_VERSION apache-maven
 
-RUN cd apache-maven/lib/ext \
- && curl -LO https://jcenter.bintray.com/org/springframework/build/aws-maven/5.0.0.RELEASE/aws-maven-5.0.0.RELEASE.jar
+ENV M2_HOME /apache-maven
+ENV MAVEN_OPTS -Xmx512m -Xss256k -XX:+UseCompressedOops
+ENV PATH $PATH:$M2_HOME/bin
+
+ENV AWS_MAVEN_VERSION 5.0.0.RELEASE
+RUN mvn dependency:get -DgroupId=org.springframework.build -DartifactId=aws-maven -Dversion=$AWS_MAVEN_VERSION \
+ && mvn dependency:copy-dependencies -f /root/.m2/repository/org/springframework/build/aws-maven/$AWS_MAVEN_VERSION/aws-maven-$AWS_MAVEN_VERSION.pom -DincludeScopes=runtime -DoutputDirectory=/apache-maven/lib/ext \
+ && rm -fR /root/.m2
 
 # --------------------------------------------------------------- teamcity-agent
 ENV TEAMCITY_VERSION 9.1.5
@@ -53,12 +56,9 @@ RUN sed -i 's/serverUrl=http:\/\/localhost:8111\//serverUrl=http:\/\/teamcity:80
 
 
 RUN useradd -m teamcity \
- && chown -R teamcity:teamcity /usr/lib/node_modules /teamcity-agent
+ && chown -R teamcity:teamcity /apache-maven /usr/lib/node_modules /teamcity-agent
 
 USER teamcity
-
-ENV M2_HOME /apache-maven
-ENV MAVEN_OPTS -Xmx512m -Xss256k -XX:+UseCompressedOops
 
 EXPOSE 9090
 CMD ["/teamcity-agent/bin/agent.sh", "run"]
