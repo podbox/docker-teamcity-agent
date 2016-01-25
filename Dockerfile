@@ -17,7 +17,7 @@ ENV PATH $PATH:$JAVA_HOME/bin
 RUN (curl -L http://download.java.net/jdk9/archive/b91/binaries/jdk-9-ea-bin-b91-linux-x64-04_nov_2015.tar.gz | gunzip -c | tar x)
 
 # ----------------------------------------------------------------------- nodejs
-ENV NODE_VERSION 5.1.0
+ENV NODE_VERSION 5.5.0
 
 RUN (curl -L https://nodejs.org/dist/v$NODE_VERSION/node-v$NODE_VERSION-linux-x64.tar.gz | gunzip -c | tar x) \
  && cp -R node-v${NODE_VERSION}-linux-x64/* /usr/ \
@@ -30,6 +30,9 @@ ENV MAVEN_VERSION 3.3.9
 
 RUN (curl -L http://www.us.apache.org/dist/maven/maven-3/$MAVEN_VERSION/binaries/apache-maven-$MAVEN_VERSION-bin.tar.gz | gunzip -c | tar x) \
  && mv apache-maven-$MAVEN_VERSION apache-maven
+
+RUN cd apache-maven/lib/ext \
+ && curl -LO https://jcenter.bintray.com/org/springframework/build/aws-maven/5.0.0.RELEASE/aws-maven-5.0.0.RELEASE.jar
 
 # --------------------------------------------------------------- teamcity-agent
 ENV TEAMCITY_VERSION 9.1.5
