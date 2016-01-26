@@ -1,7 +1,7 @@
 FROM podbox/debian
 
 RUN apt-get update \
- && apt-get install -yqq procps git libfontconfig zip python-dev python-pip \
+ && apt-get install -yqq procps git groff libfontconfig zip python-dev python-pip \
  && apt-get clean \
  && pip install -q awscli awsebcli
 
