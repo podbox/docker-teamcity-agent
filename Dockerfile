@@ -1,9 +1,8 @@
 FROM podbox/debian
 
 RUN apt-get update \
- && apt-get install -yqq procps git groff libfontconfig zip python-dev python-pip \
- && apt-get clean \
- && pip install -q awscli awsebcli
+ && apt-get install -yqq procps git libfontconfig zip \
+ && apt-get clean
 
 # ------------------------------------------------------------------------- jdk8
 RUN (curl -L -k -b "oraclelicense=accept-securebackup-cookie" http://download.oracle.com/otn-pub/java/jdk/8u60-b27/jdk-8u60-linux-x64.tar.gz | gunzip -c | tar x) \
@@ -31,14 +30,6 @@ RUN (curl -L http://www.us.apache.org/dist/maven/maven-3/$MAVEN_VERSION/binaries
 ENV M2_HOME /apache-maven
 ENV MAVEN_OPTS -Xmx512m -Xss256k -XX:+UseCompressedOops
 ENV PATH $PATH:$M2_HOME/bin
-
-ENV AWS_MAVEN_VERSION 5.0.0.RELEASE
-RUN mvn dependency:get -DgroupId=org.springframework.build -DartifactId=aws-maven -Dversion=$AWS_MAVEN_VERSION \
- && mvn dependency:copy-dependencies -f /root/.m2/repository/org/springframework/build/aws-maven/$AWS_MAVEN_VERSION/aws-maven-$AWS_MAVEN_VERSION.pom -DincludeScope=runtime -DoutputDirectory=/apache-maven/lib/ext \
- && cp /root/.m2/repository/org/springframework/build/aws-maven/$AWS_MAVEN_VERSION/aws-maven-$AWS_MAVEN_VERSION.jar /apache-maven/lib \
- && rm -f /apache-maven/lib/ext/logback-* /apache-maven/lib/ext/slf4j-* \
- && mv /apache-maven/lib/ext/*.jar /apache-maven/lib/ \
- && rm -fR /root/.m2
 
 # --------------------------------------------------------------- teamcity-agent
 ENV TEAMCITY_VERSION 9.1.5
