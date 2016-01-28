@@ -48,11 +48,19 @@ RUN curl -LO http://download.jetbrains.com/teamcity/TeamCity-$TEAMCITY_VERSION.w
 RUN sed -i 's/serverUrl=http:\/\/localhost:8111\//serverUrl=http:\/\/teamcity:8080\/teamcity\//' /teamcity-agent/conf/buildAgent.properties \
  && sed -i 's/workDir=..\/work/workDir=\/home\/teamcity\/work/'                                  /teamcity-agent/conf/buildAgent.properties
 
+# ---------------------------------------------------------- aws-maven extension
+ENV AWS_MAVEN_VERSION 5.0.0.RELEASE
+
+RUN mvn dependency:get -DgroupId=org.springframework.build -DartifactId=aws-maven -Dversion=$AWS_MAVEN_VERSION \
+ && mvn dependency:copy-dependencies -f /root/.m2/repository/org/springframework/build/aws-maven/$AWS_MAVEN_VERSION/aws-maven-$AWS_MAVEN_VERSION.pom -DincludeScope=runtime -DoutputDirectory=/teamcity-agent/plugins/mavenPlugin/maven-watcher-jdk16/ \
+ && cp /root/.m2/repository/org/springframework/build/aws-maven/$AWS_MAVEN_VERSION/aws-maven-$AWS_MAVEN_VERSION.jar /teamcity-agent/plugins/mavenPlugin/maven-watcher-jdk16/ \
+ && rm -f /teamcity-agent/plugins/mavenPlugin/maven-watcher-jdk16/logback-* \
+ && rm -fR /root/.m2
+
 
 RUN useradd -m teamcity \
  && chown -R teamcity:teamcity /apache-maven /usr/lib/node_modules /teamcity-agent
 
 USER teamcity
-
 EXPOSE 9090
 CMD ["/teamcity-agent/bin/agent.sh", "run"]
