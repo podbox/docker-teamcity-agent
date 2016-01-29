@@ -32,7 +32,7 @@ ENV MAVEN_OPTS -Xmx512m -Xss256k -XX:+UseCompressedOops
 ENV PATH $PATH:$M2_HOME/bin
 
 # --------------------------------------------------------------- teamcity-agent
-ENV TEAMCITY_VERSION 9.1.5
+ENV TEAMCITY_VERSION 9.1.6
 ENV TEAMCITY_GIT_PATH /usr/bin/git
 
 RUN curl -LO http://download.jetbrains.com/teamcity/TeamCity-$TEAMCITY_VERSION.war \
