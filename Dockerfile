@@ -5,8 +5,8 @@ RUN apt-get update \
  && apt-get clean
 
 # ------------------------------------------------------------------------- jdk8
-RUN (curl -L -k -b "oraclelicense=accept-securebackup-cookie" http://download.oracle.com/otn-pub/java/jdk/8u60-b27/jdk-8u60-linux-x64.tar.gz | gunzip -c | tar x) \
- && mv /jdk1.8.0_60 /jdk
+RUN (curl -L -k -b "oraclelicense=accept-securebackup-cookie" http://download.oracle.com/otn-pub/java/jdk/8u74-b02/jdk-8u74-linux-x64.tar.gz | gunzip -c | tar x) \
+ && mv /jdk1.8.0_74 /jdk
 
 ENV JAVA_HOME /jdk
 ENV JRE_HOME  $JAVA_HOME/jre
