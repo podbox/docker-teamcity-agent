@@ -5,15 +5,15 @@ RUN apt-get update \
  && apt-get clean
 
 # ------------------------------------------------------------------------- jdk8
-RUN (curl -L -k -b "oraclelicense=accept-securebackup-cookie" http://download.oracle.com/otn-pub/java/jdk/8u74-b02/jdk-8u74-linux-x64.tar.gz | gunzip -c | tar x) \
- && mv /jdk1.8.0_74 /jdk
+RUN (curl -L -k -b "oraclelicense=accept-securebackup-cookie" http://download.oracle.com/otn-pub/java/jdk/8u92-b14/jdk-8u92-linux-x64.tar.gz | gunzip -c | tar x) \
+ && mv /jdk1.8.0_92 /jdk
 
 ENV JAVA_HOME /jdk
 ENV JRE_HOME  $JAVA_HOME/jre
 ENV PATH $PATH:$JAVA_HOME/bin
 
 # ----------------------------------------------------------------------- nodejs
-ENV NODE_VERSION 5.5.0
+ENV NODE_VERSION 6.0.0
 
 RUN (curl -L https://nodejs.org/dist/v$NODE_VERSION/node-v$NODE_VERSION-linux-x64.tar.gz | gunzip -c | tar x) \
  && cp -R node-v${NODE_VERSION}-linux-x64/* /usr/ \
