@@ -21,7 +21,7 @@ ENV JRE_HOME  $JAVA_HOME/jre
 ENV PATH $PATH:$JAVA_HOME/bin
 
 # ----------------------------------------------------------------------- nodejs
-ENV NODE_VERSION 6.0.0
+ENV NODE_VERSION 4.4.3
 
 RUN (curl -L https://nodejs.org/dist/v$NODE_VERSION/node-v$NODE_VERSION-linux-x64.tar.gz | gunzip -c | tar x) \
  && cp -R node-v${NODE_VERSION}-linux-x64/* /usr/ \
