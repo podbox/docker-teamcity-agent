@@ -1,8 +1,16 @@
-FROM podbox/debian
+FROM ubuntu:xenial
 
-RUN apt-get update \
- && apt-get install -yqq procps git libfontconfig zip \
- && apt-get clean
+RUN locale-gen en_US.UTF-8
+ENV LANG en_US.UTF-8
+ENV LANGUAGE en_US:en
+ENV LC_ALL en_US.UTF-8
+
+RUN apt-get -qq update \
+ && apt-get -qq upgrade -y \
+ && apt-get -qq install -y curl procps git libfontconfig zip imagemagick libjpeg8-dev zlib1g-dev python-pip python-pythonmagick \
+ && apt-get -qq clean -y \
+ && pip install --upgrade pip \
+ && pip install spritify
 
 # ------------------------------------------------------------------------- jdk8
 RUN (curl -L -k -b "oraclelicense=accept-securebackup-cookie" http://download.oracle.com/otn-pub/java/jdk/8u92-b14/jdk-8u92-linux-x64.tar.gz | gunzip -c | tar x) \
@@ -43,7 +51,7 @@ RUN curl -LO http://download.jetbrains.com/teamcity/TeamCity-$TEAMCITY_VERSION.w
  && mv /teamcity-agent/conf/buildAgent.dist.properties /teamcity-agent/conf/buildAgent.properties \
 
  && rm -f TeamCity-$TEAMCITY_VERSION.war \
- && rm -fR /tmp/*
+ && rm -fR /tmp/* ~/.cache/*
 
 RUN sed -i 's/serverUrl=http:\/\/localhost:8111\//serverUrl=http:\/\/teamcity:8080\/teamcity\//' /teamcity-agent/conf/buildAgent.properties \
  && sed -i 's/workDir=..\/work/workDir=\/home\/teamcity\/work/'                                  /teamcity-agent/conf/buildAgent.properties
