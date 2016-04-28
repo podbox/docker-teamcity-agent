@@ -19,7 +19,7 @@ RUN (curl -L https://nodejs.org/dist/v$NODE_VERSION/node-v$NODE_VERSION-linux-x6
  && cp -R node-v${NODE_VERSION}-linux-x64/* /usr/ \
  && rm -fR node-v${NODE_VERSION}-linux-x64 \
  && npm update  -g \
- && npm install -g node-gyp bower grunt-cli karma-cli
+ && npm install -g node-gyp bower grunt-cli gulp-cli karma-cli
 
 # ------------------------------------------------------------------------ maven
 ENV MAVEN_VERSION 3.3.9
